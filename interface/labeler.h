@@ -9,7 +9,7 @@ class Labeler {
  public:
   Labeler();
 
-  virtual ~Labeler() = 0;
+  virtual ~Labeler();
 
  public:
   bool link(Visualizer *visualizer);
@@ -22,11 +22,13 @@ class Labeler {
 
   virtual bool setRangeFocus(Range *focus) = 0;
 
+  friend class Channel;
+
  protected:
   QSet<Visualizer *> linkedVisualizers;
   QList<Range *> ranges;
   QMap<Range *, LabelInfo *> labelInfos;
-  Range *focus;
+  Range *focus = 0;
 };
 
 #endif  // LABELER_H

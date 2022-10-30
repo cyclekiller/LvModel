@@ -1,33 +1,35 @@
 #ifndef FAKEVISUALIZER_H
 #define FAKEVISUALIZER_H
 
-#include "interface/visualizer.h"
 #include <QRectF>
 
-class FakeVisualizer : Visualizer
-{
-public:
-    FakeVisualizer(int width, int height);
+#include "interface/visualizer.h"
 
-    ~FakeVisualizer();
+class FakeVisualizer : Visualizer {
+ public:
+  FakeVisualizer(int width, int height);
 
-public:
-    bool updateRanges(const QSet<Range *> addedRange,
-                      const QSet<Range *> deletedRange,
-                      const QSet<Range *> updatedRange,
-                      void *labeler) override;
+  ~FakeVisualizer();
 
-    bool changeRangeFocus(Range *focus) override;
+ public:
+  bool updateRanges(const QSet<Range *> addedRange,
+                    const QSet<Range *> deletedRange,
+                    const QSet<Range *> updatedRange, void *labeler) override;
 
-    bool refresh() override;
+  bool changeRangeFocus(Range *focus) override;
 
-    bool clear() override;
+  bool refresh() override;
 
-    friend class Widget;
+  bool clear() override;
 
-private:
-    float top, bottom;
-    QList <QRectF> regions;
+  void mock();
+
+  friend class Widget;
+
+ private:
+  float top, bottom, width;
+  QMap<Range *, QRectF*> rangeToRegion;
+  QMap<QRectF *, Range *> regionToRange;
 };
 
-#endif // FAKEVISUALIZER_H
+#endif  // FAKEVISUALIZER_H

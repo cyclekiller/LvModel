@@ -7,7 +7,7 @@ class Visualizer {
  public:
   Visualizer();
 
-  virtual ~Visualizer() = 0;
+  virtual ~Visualizer();
 
  public:
   virtual bool updateRanges(const QSet<Range *> added,
@@ -22,7 +22,7 @@ class Visualizer {
 
  protected:
   QMap<void *, QSet<Range *>> allLabelerRanges;
-  Range *focus;
+  Range *focus = 0;
 };
 
 #endif  // VISUALIZER_H

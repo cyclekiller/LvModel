@@ -31,7 +31,7 @@ class Range {
 
   bool setRightNeighbor(Range *neighbor);
 
-  bool setParaent(Range *parent);
+  bool setParent(Range *parent);
 
   static RANGE_NEIGHBOR_POSSIBLE neighborPossible(Range *left, Range *right);
 
@@ -46,7 +46,7 @@ class Range {
   int type, hierarchy;
 
  protected:
-  Range *leftNeighbor, *rightNeighbor, *parent;
+  Range *leftNeighbor = 0, *rightNeighbor = 0, *parent = 0;
 };
 
 #endif  // RANGE_H

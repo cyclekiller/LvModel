@@ -1,9 +1,10 @@
 #ifndef FAKELABELER_H
 #define FAKELABELER_H
 
+#include <QRectF>
+
 #include "interface/labeler.h"
 #include "interface/range.h"
-#include <QRectF>
 
 class FakeLabeler : Labeler {
  public:
@@ -14,11 +15,13 @@ class FakeLabeler : Labeler {
  public:
   bool setRangeFocus(Range *focus) override;
 
+  void mock();
+
   friend class Widget;
 
-private:
-  float top, bottom;
-  QList <QRectF> splits;
+ private:
+  float top, bottom, width;
+  QList<QRectF> splitLines;
 };
 
 #endif  // FAKELABELER_H

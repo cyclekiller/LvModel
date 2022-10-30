@@ -6,16 +6,16 @@
 
 class Channel {
  public:
-  Channel(QSet<Labeler *> labelers, QSet<Visualizer *> Visualizers);
+  Channel(QSet<Labeler *> labelers, QSet<Visualizer *> visualizers);
 
-  ~Channel();
+  virtual ~Channel();
 
  public:
   bool show();
 
  protected:
   QSet<Labeler *> labelers;
-  QSet<Visualizer *> Visualizers;
+  QSet<Visualizer *> visualizers;
 };
 
 #endif  // CHANNEL_H

@@ -5,16 +5,16 @@ Labeler::Labeler() {}
 Labeler::~Labeler() {}
 
 bool Labeler::link(Visualizer *visualizer) {
-    linkedVisualizers += visualizer;
-    return true;
+  linkedVisualizers += visualizer;
+  return true;
 };
 
 bool Labeler::unlink(Visualizer *visualizer) {
-    if (linkedVisualizers.contains(visualizer)) {
-        linkedVisualizers -= visualizer;
-        return true;
-    }
-    return false;
+  if (linkedVisualizers.contains(visualizer)) {
+    linkedVisualizers -= visualizer;
+    return true;
+  }
+  return false;
 };
 
 // slow, only for demo
@@ -30,5 +30,5 @@ QList<Range *> Labeler::getRanges(int type, int hierarchy) const {
 };
 
 LabelInfo Labeler::getLabelInfo(Range *range) const {
-    return *labelInfos[range];
+  return *labelInfos[range];
 };

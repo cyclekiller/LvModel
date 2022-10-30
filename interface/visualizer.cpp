@@ -3,4 +3,3 @@
 Visualizer::Visualizer() {}
 
 Visualizer::~Visualizer() {}
-

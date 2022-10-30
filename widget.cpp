@@ -6,7 +6,13 @@
 
 #include "fakelabeler.h"
 #include "fakevisualizer.h"
+#include "interface/channel.h"
 #include "ui_widget.h"
+#define using(painter, pen, penColor, brush, brushColor) \
+  pen.setColor(Qt::penColor);                            \
+  brush.setColor(Qt::brushColor);                        \
+  painter.setPen(pen);                                   \
+  painter.setBrush(brush);
 
 Widget::Widget(QWidget *parent) : QWidget(parent), ui(new Ui::Widget) {
   ui->setupUi(this);
@@ -14,8 +20,13 @@ Widget::Widget(QWidget *parent) : QWidget(parent), ui(new Ui::Widget) {
   int width = 800, height = 600;
   resize(width, height);
 
-  fakeVis = new FakeVisualizer(width, height);
   fakeLab = new FakeLabeler(width, height);
+  fakeVis = new FakeVisualizer(width, height);
+  fakeLab->link(fakeVis);  // link labeler and visualizer
+  fakeLab->mock(); // mock user input
+  // fakeVis->mock(); no need to call because fakeLab and fakeVis are linked
+  Channel channel(QSet<Labeler *>{fakeLab}, QSet<Visualizer *>{fakeVis});
+  channel.show();
 }
 
 Widget::~Widget() {
@@ -28,24 +39,26 @@ void Widget::paintEvent(QPaintEvent *event) {
   QPainter painter(this);
   QPen pen;
   QBrush brush;
-
-  pen.setColor(Qt::green);
-  brush.setColor(Qt::blue);
   brush.setStyle(Qt::SolidPattern);
-  painter.setPen(pen);
-  painter.setBrush(brush);
 
-  for (int i = 0; i < fakeVis->regions.length(); i++) {
-    painter.drawRect(fakeVis->regions[i]);
+  using(painter, pen, black, brush, gray) painter.drawRect(
+      QRectF(0, fakeVis->top, this->width(), fakeVis->bottom - fakeVis->top));
+  painter.drawRect(
+      QRectF(0, fakeLab->top, this->width(), fakeLab->bottom - fakeLab->top));
+
+  using(painter, pen, blue, brush, green)
+      foreach (auto region, fakeVis->regionToRange.keys()) {
+    painter.drawRect(*region);
   }
 
-  pen.setColor(Qt::yellow);
-  brush.setColor(Qt::red);
-  brush.setStyle(Qt::SolidPattern);
-  painter.setPen(pen);
-  painter.setBrush(brush);
-  for (int i = 0; i < fakeLab->splits.length(); i++) {
-    painter.drawRect(fakeLab->splits[i]);
+  using(painter, pen, yellow, brush, red)
+      foreach (auto splitLine, fakeLab->splitLines) {
+    painter.drawRect(splitLine);
+  }
+
+  if (fakeVis->focus != nullptr) {
+    using(painter, pen, blue, brush, blue)
+        painter.drawRect(*fakeVis->rangeToRegion[fakeVis->focus]);
   }
 }
 
