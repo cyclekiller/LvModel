@@ -8,7 +8,7 @@ FakeVisualizer::FakeVisualizer(int width, int height) : Visualizer() {
 
 FakeVisualizer::~FakeVisualizer() {
     foreach(auto range, regionToRange){
-        delete range;
+        // delete range;
     }
     foreach(auto region, rangeToRegion){
         delete region;
