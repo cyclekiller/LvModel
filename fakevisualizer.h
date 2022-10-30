@@ -5,31 +5,30 @@
 
 #include "interface/visualizer.h"
 
-class FakeVisualizer : Visualizer {
- public:
-  FakeVisualizer(int width, int height);
+class FakeVisualizer : public Visualizer {
+public:
+    FakeVisualizer(int width, int height);
 
-  ~FakeVisualizer();
+    ~FakeVisualizer();
 
- public:
-  bool updateRanges(const QSet<Range *> addedRange,
-                    const QSet<Range *> deletedRange,
-                    const QSet<Range *> updatedRange, void *labeler) override;
+public:
+    bool updateRanges(const QSet<Range *> &addedRange, const QSet<Range *> &deletedRange,
+                      const QSet<Range *> &updatedRange, void *labeler) override;
 
-  bool changeRangeFocus(Range *focus) override;
+    bool changeRangeFocus(Range *focus) override;
 
-  bool refresh() override;
+    bool refresh() override;
 
-  bool clear() override;
+    bool clear() override;
 
-  void mock();
+    void mock();
 
-  friend class Widget;
+    friend class Widget;
 
- private:
-  float top, bottom, width;
-  QMap<Range *, QRectF*> rangeToRegion;
-  QMap<QRectF *, Range *> regionToRange;
+private:
+    float top, bottom, width;
+    QMap<Range *, QRectF *> rangeToRegion;
+    QMap<QRectF *, Range *> regionToRange;
 };
 
-#endif  // FAKEVISUALIZER_H
+#endif // FAKEVISUALIZER_H

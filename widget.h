@@ -1,6 +1,7 @@
 #ifndef WIDGET_H
 #define WIDGET_H
 
+#include <QScopedPointer>
 #include <QWidget>
 
 #include "fakelabeler.h"
@@ -8,26 +9,26 @@
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
-class Widget;
+    class Widget;
 }
 QT_END_NAMESPACE
 
 class Widget : public QWidget {
-  Q_OBJECT
+    Q_OBJECT
 
- public:
-  Widget(QWidget *parent = nullptr);
-  ~Widget();
+public:
+    Widget(QWidget *parent = nullptr);
+    ~Widget();
 
- protected:
-  void paintEvent(QPaintEvent *event);
+protected:
+    void paintEvent(QPaintEvent *event);
 
-  void keyPressEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event);
 
- private:
-  Ui::Widget *ui;
+private:
+    Ui::Widget *ui;
 
-  FakeVisualizer *fakeVis;
-  FakeLabeler *fakeLab;
+    QScopedPointer<FakeVisualizer> fakeVis;
+    QScopedPointer<FakeLabeler> fakeLab;
 };
-#endif  // WIDGET_H
+#endif // WIDGET_H
