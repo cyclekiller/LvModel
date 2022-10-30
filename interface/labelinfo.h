@@ -4,13 +4,13 @@
 #include <QString>
 
 class LabelInfo {
- public:
-  LabelInfo(QString label);
+public:
+    LabelInfo(const QString &label);
 
-  virtual ~LabelInfo();
+    virtual ~LabelInfo();
 
- public:
-  QString label;
+public:
+    QString label;
 };
 
-#endif  // LABELINFO_H
+#endif // LABELINFO_H

@@ -5,17 +5,17 @@
 #include "visualizer.h"
 
 class Channel {
- public:
-  Channel(QSet<Labeler *> labelers, QSet<Visualizer *> visualizers);
+public:
+    Channel(const QSet<Labeler *> &labelers, const QSet<Visualizer *> &visualizers);
 
-  virtual ~Channel();
+    virtual ~Channel();
 
- public:
-  bool show();
+public:
+    bool show();
 
- protected:
-  QSet<Labeler *> labelers;
-  QSet<Visualizer *> visualizers;
+protected:
+    QSet<Labeler *> labelers;
+    QSet<Visualizer *> visualizers;
 };
 
-#endif  // CHANNEL_H
+#endif // CHANNEL_H
