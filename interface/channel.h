@@ -2,20 +2,20 @@
 #define CHANNEL_H
 
 #include "labeler.h"
-#include "plotorplayer.h"
+#include "visualizer.h"
 
 class Channel {
-public:
-  Channel(QSet<Labeler *> labelers, QSet<PlotOrPlayer *> plotOrPlayers);
+ public:
+  Channel(QSet<Labeler *> labelers, QSet<Visualizer *> Visualizers);
 
   ~Channel();
 
-public:
+ public:
   bool show();
 
-private:
+ protected:
   QSet<Labeler *> labelers;
-  QSet<PlotOrPlayer *> plotOrPlayers;
+  QSet<Visualizer *> Visualizers;
 };
 
-#endif // CHANNEL_H
+#endif  // CHANNEL_H

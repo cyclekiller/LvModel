@@ -1,15 +1,15 @@
-#ifndef PLOTORPLAYER_H
-#define PLOTORPLAYER_H
+#ifndef VISUALIZER_H
+#define VISUALIZER_H
 
 #include "range.h"
 
-class PlotOrPlayer {
-public:
-  PlotOrPlayer();
+class Visualizer {
+ public:
+  Visualizer();
 
-  virtual ~PlotOrPlayer() = 0;
+  virtual ~Visualizer() = 0;
 
-public:
+ public:
   virtual bool updateRanges(const QSet<Range *> added,
                             const QSet<Range *> deleted,
                             const QSet<Range *> updated, void *labeler) = 0;
@@ -20,9 +20,9 @@ public:
 
   virtual bool clear() = 0;
 
-private:
+ protected:
   QMap<void *, QSet<Range *>> allLabelerRanges;
   Range *focus;
 };
 
-#endif // PLOTORPLAYER_H
+#endif  // VISUALIZER_H

@@ -1,8 +1,9 @@
 #include "channel.h"
-#include "labeler.h"
-#include "plotorplayer.h"
 
-Channel::Channel(QSet<Labeler *> labelers, QSet<PlotOrPlayer *> plotOrPlayers) {
+#include "labeler.h"
+#include "visualizer.h"
+
+Channel::Channel(QSet<Labeler *> labelers, QSet<Visualizer *> Visualizers) {
   this->labelers = labelers;
-  this->plotOrPlayers = plotOrPlayers;
+  this->Visualizers = Visualizers;
 }

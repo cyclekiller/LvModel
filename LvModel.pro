@@ -9,20 +9,24 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    fakelabeler.cpp \
+    fakevisualizer.cpp \
     interface/channel.cpp \
     interface/labeler.cpp \
     interface/labelinfo.cpp \
-    interface/plotorplayer.cpp \
     interface/range.cpp \
+    interface/visualizer.cpp \
     main.cpp \
     widget.cpp
 
 HEADERS += \
+    fakelabeler.h \
+    fakevisualizer.h \
     interface/channel.h \
     interface/labeler.h \
     interface/labelinfo.h \
-    interface/plotorplayer.h \
     interface/range.h \
+    interface/visualizer.h \
     widget.h
 
 FORMS += \

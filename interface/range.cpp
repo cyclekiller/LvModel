@@ -6,3 +6,5 @@ Range::Range(float begin, float end, int type, int hierarchy) {
   this->type = type;
   this->hierarchy = hierarchy;
 }
+
+Range::~Range() {};
