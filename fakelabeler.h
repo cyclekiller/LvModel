@@ -6,22 +6,22 @@
 #include "interface/labeler.h"
 #include "interface/range.h"
 
-class FakeLabeler : Labeler {
- public:
-  FakeLabeler(int width, int height);
+class FakeLabeler : public Labeler {
+public:
+    FakeLabeler(int width, int height);
 
-  ~FakeLabeler();
+    ~FakeLabeler();
 
- public:
-  bool setRangeFocus(Range *focus) override;
+public:
+    bool setRangeFocus(Range *focus) override;
 
-  void mock();
+    void mock();
 
-  friend class Widget;
+    friend class Widget;
 
- private:
-  float top, bottom, width;
-  QList<QRectF> splitLines;
+private:
+    float top, bottom, width;
+    QList<QRectF> splitLines;
 };
 
-#endif  // FAKELABELER_H
+#endif // FAKELABELER_H
