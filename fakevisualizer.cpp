@@ -11,28 +11,27 @@ FakeVisualizer::~FakeVisualizer() {
     foreach (auto region, rangeToRegion) {
         delete region;
     }
+    foreach (auto ranges, allLabelerRanges) {
+        delete ranges;
+    }
 }
 
 bool FakeVisualizer::updateRanges(const QSet<Range *> &addedRange,
                                   const QSet<Range *> &deletedRange,
                                   const QSet<Range *> &updatedRange, void *labeler) {
+    if (!allLabelerRanges.contains(labeler))
+        allLabelerRanges.insert(labeler, new QSet<Range *>());
     auto ranges = allLabelerRanges[labeler];
     if (!addedRange.isEmpty()) {
-        ranges += addedRange;
+        *ranges += addedRange;
         foreach (auto range, addedRange) {
             auto region = new QRectF(QPointF(range->begin, top), QPointF(range->end, bottom));
             rangeToRegion.insert(range, region);
             regionToRange.insert(region, range);
         }
     }
-    if (!updatedRange.isEmpty()) {
-        foreach (auto range, updatedRange) {
-            auto region = rangeToRegion[range];
-            *region = QRectF(QPointF(range->begin, top), QPointF(range->end, bottom));
-        }
-    }
     if (!deletedRange.isEmpty()) {
-        ranges -= deletedRange;
+        *ranges -= deletedRange;
         foreach (auto region, rangeToRegion) {
             auto range = regionToRange[region];
             if (deletedRange.contains(range)) {
@@ -41,13 +40,26 @@ bool FakeVisualizer::updateRanges(const QSet<Range *> &addedRange,
             }
         }
     }
+    if (!updatedRange.isEmpty()) {
+        foreach (auto range, updatedRange) {
+            auto region = rangeToRegion[range];
+            *region = QRectF(QPointF(range->begin, top), QPointF(range->end, bottom));
+        }
+    }
     return true;
 }
 
-bool FakeVisualizer::refresh() {
-    foreach(auto labeler, allLabelerRanges.keys()){
-        ((Labeler*)labeler)->changeRangeFocus(nullptr);
-        foreach (auto range, allLabelerRanges[labeler]) {
+bool FakeVisualizer::changeRangeFocus(Range *focus) {
+    this->focus = focus;
+    return true;
+};
+
+bool FakeVisualizer::update() {
+    rangeToRegion.clear();
+    regionToRange.clear();
+    foreach (auto labeler, allLabelerRanges.keys()) {
+        auto ranges = allLabelerRanges[labeler];
+        foreach (auto range, *ranges) {
             auto region = new QRectF(QPointF(range->begin, top), QPointF(range->end, bottom));
             rangeToRegion.insert(range, region);
             regionToRange.insert(region, range);
@@ -60,6 +72,10 @@ bool FakeVisualizer::clear() {
     foreach (auto region, rangeToRegion) {
         delete region;
     }
+    foreach (auto ranges, allLabelerRanges) {
+        delete ranges;
+    }
+    allLabelerRanges.clear();
     rangeToRegion.clear();
     regionToRange.clear();
     focus = nullptr;
@@ -75,6 +91,6 @@ void FakeVisualizer::mock() { // temporary
         auto range = new Range(x, x + w, 0);
         if (i == 0)
             changeRangeFocus(range);
-        updateRanges(QSet<Range *>{range}, QSet<Range *>{}, QSet<Range *>{}, this);
+        updateRanges(QSet<Range *>{range}, QSet<Range *>{}, QSet<Range *>{}, nullptr);
     }
 }

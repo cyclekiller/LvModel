@@ -17,6 +17,8 @@ public:
 
     friend class Widget;
 
+    bool changeRangeFocus(Range *range) override;
+
 private:
     float top, bottom, width;
     QList<QRectF> splitLines;

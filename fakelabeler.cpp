@@ -28,3 +28,8 @@ void FakeLabeler::mock() {
     }
     changeRangeFocus(ranges[0]);
 }
+
+bool FakeLabeler::changeRangeFocus(Range *focus) {
+    this->focus = focus;
+    return true;
+}

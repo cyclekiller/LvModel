@@ -15,7 +15,9 @@ public:
     bool updateRanges(const QSet<Range *> &addedRange, const QSet<Range *> &deletedRange,
                       const QSet<Range *> &updatedRange, void *labeler) override;
 
-    bool refresh() override;
+    bool changeRangeFocus(Range *range) override;
+
+    bool update() override;
 
     bool clear() override;
 

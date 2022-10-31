@@ -6,11 +6,6 @@ Visualizer::Visualizer() {
 Visualizer::~Visualizer() {
 }
 
-bool Visualizer::changeRangeFocus(Range *focus){
-    this->focus = focus;
-    return true;
-};
-
 bool Visualizer::rangeFocusNext(){
     if (focus->rightNeighbor) {
         return changeRangeFocus(focus->rightNeighbor);
