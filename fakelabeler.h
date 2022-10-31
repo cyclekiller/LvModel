@@ -13,8 +13,6 @@ public:
     ~FakeLabeler();
 
 public:
-    bool setRangeFocus(Range *focus) override;
-
     void mock();
 
     friend class Widget;

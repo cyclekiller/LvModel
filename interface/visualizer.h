@@ -13,7 +13,13 @@ public:
     virtual bool updateRanges(const QSet<Range *> &added, const QSet<Range *> &deleted,
                               const QSet<Range *> &updated, void *labeler) = 0;
 
-    virtual bool changeRangeFocus(Range *focus) = 0;
+    virtual bool changeRangeFocus(Range *focus);
+
+    bool rangeFocusNext();
+
+    bool rangeFocusPrev();
+
+    bool rangeFocusParent();
 
     virtual bool refresh() = 0;
 

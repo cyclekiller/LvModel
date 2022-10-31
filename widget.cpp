@@ -9,7 +9,7 @@
 #include "interface/channel.h"
 #include "ui_widget.h"
 
-#define USING(painter, pen, penColor, brush, brushColor)                                           \
+#define Using(painter, pen, penColor, brush, brushColor)                                           \
     pen.setColor(Qt::penColor);                                                                    \
     brush.setColor(Qt::brushColor);                                                                \
     painter.setPen(pen);                                                                           \
@@ -23,10 +23,11 @@ Widget::Widget(QWidget *parent) : QWidget(parent), ui(new Ui::Widget) {
 
     fakeLab.reset(new FakeLabeler(width, height));
     fakeVis.reset(new FakeVisualizer(width, height));
+
     fakeLab->link(fakeVis.data()); // link labeler and visualizer
     fakeLab->mock();               // mock user input
-
     // fakeVis->mock(); no need to call because fakeLab and fakeVis are linked
+
     Channel channel(QSet<Labeler *>{fakeLab.data()}, QSet<Visualizer *>{fakeVis.data()});
     channel.show();
 }
@@ -41,33 +42,39 @@ void Widget::paintEvent(QPaintEvent *event) {
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
 
-    USING(painter, pen, black, brush, gray)
-    painter.drawRect(QRectF(0, fakeVis->top, this->width(), fakeVis->bottom - fakeVis->top));
+    Using(painter, pen, black, brush, gray)
+        painter.drawRect(QRectF(0, fakeVis->top, this->width(), fakeVis->bottom - fakeVis->top));
     painter.drawRect(QRectF(0, fakeLab->top, this->width(), fakeLab->bottom - fakeLab->top));
 
-    USING(painter, pen, blue, brush, green) foreach (auto region, fakeVis->regionToRange.keys()) {
+    Using(painter, pen, blue, brush, green) foreach (auto region, fakeVis->regionToRange.keys()) {
         painter.drawRect(*region);
     }
 
-    USING(painter, pen, yellow, brush, red) foreach (auto splitLine, fakeLab->splitLines) {
+    Using(painter, pen, yellow, brush, red) foreach (auto splitLine, fakeLab->splitLines) {
         painter.drawRect(splitLine);
     }
 
     if (fakeVis->focus != nullptr) {
-        USING(painter, pen, blue, brush, blue)
-        painter.drawRect(*fakeVis->rangeToRegion[fakeVis->focus]);
+        Using(painter, pen, blue, brush, blue)
+            painter.drawRect(*fakeVis->rangeToRegion[fakeVis->focus]);
     }
 }
 
 void Widget::keyPressEvent(QKeyEvent *event) {
     switch (event->key()) {
         case Qt::Key_Up:
+            if (fakeVis->rangeFocusParent())
+                update();
             break;
         case Qt::Key_Down:
             break;
         case Qt::Key_Left:
+            if (fakeVis->rangeFocusPrev())
+                update();
             break;
         case Qt::Key_Right:
+            if (fakeVis->rangeFocusNext())
+                update();
             break;
         case Qt::Key_Space:
             break;

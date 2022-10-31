@@ -20,6 +20,7 @@ bool Channel::show() {
         foreach (auto visualizer, labeler->linkedVisualizers)
             if (visualizers.contains(visualizer)) {
                 visualizer->updateRanges(rangeSet, QSet<Range *>(), QSet<Range *>(), labeler);
+                visualizer->changeRangeFocus(labeler->focus);
             }
     }
     return true;

@@ -20,7 +20,7 @@ public:
 
     LabelInfo getLabelInfo(Range *range) const;
 
-    virtual bool setRangeFocus(Range *focus) = 0;
+    virtual bool changeRangeFocus(Range *focus);
 
     friend class Channel;
 

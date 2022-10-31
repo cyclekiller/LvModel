@@ -44,7 +44,7 @@ RANGE_PARENT_POSSIBLE Range::parentPossible(Range *parent, Range *child) {
 };
 
 Range *Range::merge(const QList<Range *> &ranges) {
-    auto parent = new Range(ranges.first()->begin, ranges.last()->end, 0);
+    auto parent = new Range(ranges.constFirst()->begin, ranges.constLast()->end, 0);
     foreach (auto range, ranges) {
         range->setParent(parent);
     }

@@ -12,10 +12,6 @@ FakeLabeler::~FakeLabeler() {
     }
 }
 
-bool FakeLabeler::setRangeFocus(Range *focus) {
-    return true;
-}
-
 void FakeLabeler::mock() {
     ranges.clear();
     splitLines.clear();
@@ -30,4 +26,5 @@ void FakeLabeler::mock() {
         }
         ranges.append(range);
     }
+    changeRangeFocus(ranges[0]);
 }

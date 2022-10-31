@@ -45,6 +45,10 @@ public:
 
     int type, hierarchy;
 
+    friend class Visualizer;
+
+    friend class Labeler;
+
 protected:
     Range *leftNeighbor = 0, *rightNeighbor = 0, *parent = 0;
 };

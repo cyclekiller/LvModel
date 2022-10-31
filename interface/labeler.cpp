@@ -34,3 +34,8 @@ QList<Range *> Labeler::getRanges(int type, int hierarchy) const {
 LabelInfo Labeler::getLabelInfo(Range *range) const {
     return *labelInfos[range];
 };
+
+bool Labeler::changeRangeFocus(Range *focus) {
+    this->focus = focus;
+    return true;
+}
