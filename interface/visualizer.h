@@ -12,7 +12,7 @@
  * Extra visual objects are layered upon the plot, providing necessary hint for labeling.
  *
  * Sometimes the visualizer also modifies the labeling data, however it should only
- * modify the range, not the label info (see labelinfo.h).
+ * modify the range (see range.h), not the label info (see labelinfo.h).
  */
 class Visualizer {
 public:
