@@ -7,7 +7,7 @@
 
 /**
  * @brief The Labeler class holds same labeling data, edits the data and sends the data to its linked visualizers
- * for displaying the data in context. (see also labeler.h)
+ * for displaying the data in context. (see also visualizer.h)
  * 
  * The labeler can have all sorts of data, but it can only send Range classes (see range.h)
  * to its linked visualizers. This is to prevent labelers from entangling with visualizers.
